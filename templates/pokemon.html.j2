@@ -1,0 +1,55 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Pokemon Details
+{% endblock %}
+
+{% block content %}
+    <h1>Pokemon Details</h1>
+    <p>Please enter the name of any Pokemon.</p>
+    <form method="POST" action="/pokemon">
+        <div class="mb-3">
+            <label for="pokemon_name" class="form-label">Name</label>
+            <input type="text" name="pokemon_name" value="" class="form-control" id="pokemon_name">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {% if error %}
+        <small style="color:red;">{{error}}</small>
+    {% else %}
+        <small style="color:red;"></small>
+    {% endif %}
+    {% if pokemon %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Order</th>
+                    <th scope="col">HP</th>
+                    <th scope="col">Defense</th>
+                    <th scope="col">Attack</th>
+                    <th scope="col">Sprite URL</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pokemon_val in pokemon %}
+                <tr>
+                    <th scope="row">{{pokemon_val['id']}}</th>
+                    <th scope="row">{{pokemon_val['name']}}</th>
+                    <td>{{pokemon_val['order']}}</td>
+                    <td>{{pokemon_val['hp']}}</td>
+                    <td>{{pokemon_val['defense']}}</td>
+                    <td>{{pokemon_val['attack']}}</td>
+                    <td>{{pokemon_val['url']}}</td>
+                    <td><img src={{pokemon_val['url']}} alt="Loading.." border="3" height=100 width=100></img></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
